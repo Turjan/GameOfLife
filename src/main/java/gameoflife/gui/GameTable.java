@@ -4,6 +4,7 @@ import gameoflife.LifeUtils;
 import gameoflife.lifereader.Pair;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -200,7 +201,7 @@ public class GameTable extends JDialog{
             public void run(){ if(play) { update(); } }
         };
         
-        timer.scheduleAtFixedRate(task, 150, 150);
+        timer.scheduleAtFixedRate(task, 100, 100);
         
         setModal(true);
         setVisible(true);
@@ -212,6 +213,7 @@ public class GameTable extends JDialog{
     private void update(){
         calculateStatus();
         generationCounter.setText("Generation: " + generation++);
+        if(System.getProperty("os.name").equals("Linux")){ Toolkit.getDefaultToolkit().sync();  }
         gamePanel.repaint();
         gamePanel.revalidate();
     }
